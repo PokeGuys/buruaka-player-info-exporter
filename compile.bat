@@ -1,0 +1,1 @@
+pyinstaller -F proxy.py
