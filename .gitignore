@@ -373,4 +373,8 @@ $RECYCLE.BIN/
 
 # Custom JSON
 Account_LoginSync.json
+Equipment_List.json
 Item_List.json
+armory_code.txt
+!output/.gitkeep
+output/*

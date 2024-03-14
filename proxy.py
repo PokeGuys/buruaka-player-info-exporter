@@ -2,7 +2,7 @@ import asyncio
 import logging
 from mitmproxy import options
 from mitmproxy.tools.dump import DumpMaster
-from interceptor import addons
+import dumpers
 
 
 async def main():
@@ -10,7 +10,7 @@ async def main():
     opts = options.Options(mode=["wireguard"])
 
     m = DumpMaster(opts)
-    m.addons.add(*addons)
+    m.addons.add(*dumpers.ADDONS)
 
     try:
         await m.run()
