@@ -4,8 +4,8 @@ from base_dumper import BlueArchiveDumper
 
 class BlueArchiveEquipmentDumper(BlueArchiveDumper):
 
-    def __init__(self):
-        super().__init__("equipments")
+    def file_name(self):
+        return "equipments"
 
     def is_target_endpoint(self, url):
         return any(

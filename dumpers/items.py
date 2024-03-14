@@ -4,8 +4,8 @@ from base_dumper import BlueArchiveDumper
 
 class BlueArchiveItemDumper(BlueArchiveDumper):
 
-    def __init__(self):
-        super().__init__("items")
+    def file_name(self):
+        return "items"
 
     def is_target_endpoint(self, url):
         return any(endpoint in url for endpoint in ["/api/item/list", "/api/gateway"])
