@@ -1,5 +1,7 @@
 import json
 
+GXP_LIST = ["Spring", "Hammer", "Barrel", "Needle"]
+WEAPON_LIST = ["Hat","Gloves", "Shoes", "Bag", "Badge", "Hairpin", "Charm", "Watch", "Necklace"]
 JUSTIN163_TEMPLATE = {
     "exportVersion": 2,
     "characters": [],
@@ -78,12 +80,32 @@ with open("../output/characters.json", "r", encoding="utf-8") as f:
 with open("../output/items.json", "r", encoding="utf-8") as f:
     items = json.load(f)
     item_dict = {item["id"]: item for item in items}
-    JUSTIN163_TEMPLATE["owned_materials"]["XP_1"] = item_dict[10]["count"]
-    JUSTIN163_TEMPLATE["owned_materials"]["XP_2"] = item_dict[11]["count"]
-    JUSTIN163_TEMPLATE["owned_materials"]["XP_3"] = item_dict[12]["count"]
-    JUSTIN163_TEMPLATE["owned_materials"]["XP_4"] = item_dict[13]["count"]
+    for i in range(1, 5):
+        item = item_dict.get(9+i, None)
+        if item is not None:
+            JUSTIN163_TEMPLATE["owned_materials"][f"XP_{i}"] = item["count"]
     for item in items:
         JUSTIN163_TEMPLATE["owned_materials"][item["id"]] = item["count"]
+
+with open("../output/equipments.json", "r", encoding="utf-8") as f:
+    equipments = json.load(f)
+    equipment_dict = {equipment["id"]: equipment for equipment in equipments}
+    for i in range(1, 5):
+        equipment = equipment_dict.get(i, None)
+        if equipment is not None:
+            JUSTIN163_TEMPLATE["owned_materials"][f"GXP_{i}"] = equipment["count"]
+        for m in GXP_LIST:
+            material = equipment_dict.get(GXP_LIST.index(m) * 10 + 9 + i, None)
+            if material is not None:
+                JUSTIN163_TEMPLATE["owned_materials"][f"T{i}_{m}"] = material["count"]
+    for w in WEAPON_LIST:
+        t1 = equipment_dict.get((WEAPON_LIST.index(w) + 1) * 1000, None)
+        if t1 is not None:
+            JUSTIN163_TEMPLATE["owned_materials"][f"T1_{w}"] = t1["count"]
+        for i in range(2, 10):
+            weapon = equipment_dict.get(100000 + (WEAPON_LIST.index(w) + 1) * 1000 + i - 1, None)
+            if weapon is not None:
+                JUSTIN163_TEMPLATE["owned_materials"][f"T{i}_{w}"] = weapon["count"]
 
 with open("justin163.json", "w") as f:
     json.dump(JUSTIN163_TEMPLATE, f)
