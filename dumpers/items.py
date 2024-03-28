@@ -21,4 +21,5 @@ class BlueArchiveItemDumper(BlueArchiveDumper):
                 "count": item["StackCount"],
             }
             for item in packet["ItemDBs"]
+            if item["UniqueId"] in ITEM_DB
         ]
