@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import os
 import json
+import sys
 
 
 def is_bluearchive_api(url):
@@ -15,6 +16,13 @@ def is_global_server(url):
     return "bagl.nexon.com" in url
 
 
+def get_root_path():
+    if getattr(sys, "frozen", False):
+        return os.path.dirname(sys.executable)
+    elif __file__:
+        return os.path.dirname(__file__)
+
+
 class BlueArchiveDumper(ABC):
 
     def response(self, flow):
@@ -26,7 +34,7 @@ class BlueArchiveDumper(ABC):
         if not self.is_target_protocol(payload["protocol"]):
             return
         response = self.transform(json.loads(payload["packet"]))
-        ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+        ROOT_DIR = get_root_path()
         output_path = os.path.join(ROOT_DIR, "output", f"{self.file_name()}.json")
         self.save_response(response, output_path)
 
