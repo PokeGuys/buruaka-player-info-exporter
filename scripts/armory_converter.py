@@ -70,7 +70,7 @@ with open("./output/equipments.json", "r", encoding="utf-8") as f:
     equipments = json.load(f)
     for eq in equipments:
         ARMORY_TEMPLATE["stocks"][2000000 + eq["id"]] = eq["count"]
-with open("./armory_code.out.txt", "w", encoding="utf-8") as f:
+with open("./armory_code.txt", "w", encoding="utf-8") as f:
     f.write(
         LZString.compressToBase64(
             json.dumps(ARMORY_TEMPLATE, indent=4, ensure_ascii=False)

@@ -1,4 +1,3 @@
-from database.equipment_db import EQUIPMENT_DB
 from base_dumper import BlueArchiveDumper
 
 
@@ -20,10 +19,8 @@ class BlueArchiveEquipmentDumper(BlueArchiveDumper):
             dict(
                 {
                     "id": eq["UniqueId"],
-                    "name": EQUIPMENT_DB[eq["UniqueId"]],
                     "count": eq["StackCount"],
                 }
             )
             for eq in packet["EquipmentItemListResponse"]["EquipmentDBs"]
-            if "BoundCharacterServerId" not in eq
         ]

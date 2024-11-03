@@ -1,4 +1,3 @@
-from database.character_db import CHARACTER_DICT
 from base_dumper import BlueArchiveDumper
 
 
@@ -44,7 +43,6 @@ class BlueArchiveCharacterDumper(BlueArchiveDumper):
             characters.append(
                 {
                     "id": db["UniqueId"],
-                    "name": CHARACTER_DICT[db["UniqueId"]],
                     "level": db["Level"],
                     "starGrade": db["StarGrade"],
                     "ueGrade": 0 if weapon is None else weapon.get("StarGrade", 1),
