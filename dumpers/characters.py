@@ -40,6 +40,7 @@ class BlueArchiveCharacterDumper(BlueArchiveDumper):
             equipments = [
                 equipment_dict.get(serverId) for serverId in db["EquipmentServerIds"]
             ]
+            print(db["PotentialStats"])
             characters.append(
                 {
                     "id": db["UniqueId"],
@@ -76,6 +77,12 @@ class BlueArchiveCharacterDumper(BlueArchiveDumper):
                         gear.get("Tier", "N/A") if gear is not None else "N/A"
                     ),
                     "favorRank": db["FavorRank"],
+                    "hp": db["PotentialStats"]["1"] if db["PotentialStats"] is not None else 0,
+                    "attack": db["PotentialStats"]["2"] if db["PotentialStats"] is not None else 0,
+                    "heal": db["PotentialStats"]["3"] if db["PotentialStats"] is not None else 0,
+                    "equipment_1_level": equipments[0].get("Level", 0) if equipments[0] is not None else 0,
+                    "equipment_2_level": equipments[1].get("Level", 0) if equipments[1] is not None else 0,
+                    "equipment_3_level": equipments[2].get("Level", 0) if equipments[2] is not None else 0,
                 }
             )
         return characters
